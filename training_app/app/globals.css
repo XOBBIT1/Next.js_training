@@ -28,3 +28,41 @@ a{
 a:hover {
   text-decoration: underline;
 }
+
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px ;
+}
+
+
+.tasks_boks{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border: 8px solid #fff;
+  min-height: 100px ;
+  gap: 20px;
+} 
+
+.box{
+  border: 8px solid #000;
+  font-size: 20px;
+  width: 600px;
+}
+
+.box_header{
+  border: 8px solid #000;
+  font-size: 20px;
+  padding: 20px;
+} 
+
+.add_task{
+  font-size: 20px;
+  border: 8px solid #fff;
+  display: flex;
+  justify-content: flex-end;
+}
