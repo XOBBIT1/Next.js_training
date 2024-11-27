@@ -11,10 +11,19 @@ body {
 
 header {
   display: flex;
+  border: 8px solid #fff;
   justify-content: space-between;
   background-color: #000000;
   border-bottom: 2px solid #2c2c2c;
   padding: 20px 50px;
+}
+
+.header_box {
+  border: 8px solid #fff;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  padding: 10px;
 }
 
 header a{
