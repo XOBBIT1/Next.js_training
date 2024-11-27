@@ -54,10 +54,10 @@ export default function EditTaskPage() {
         <div className="add_task">
             <button onClick={() => router.push(`/edit/${task_id}`)}>Редактировать задачу</button>
         </div>
-          <h1>Задача: {task.task_name}</h1>
-          <p>Описание: {task.task_descriptions}</p>
-          <p>Статус: {task.status}</p>
-          <p>Приоритет: {task.priority}</p>
+          <h1>{task.task_name}</h1>
+          <p>{task.task_descriptions}</p>
+          <p>{task.status}</p>
+          <p>{task.priority}</p>
       </div>
   );
 }

@@ -4,7 +4,10 @@ import React from 'react'
 const Header = () => {
   return (
     <header>
-        <h1>Treining header</h1>
+      <div className="header_box">
+      <Link href={"/user"}>User</Link>
+        <h1>Task managment sistem</h1>
+      </div>
         <nav>
             <Link href={"/"}>Home</Link>
             <Link href={"/loging"}>Login</Link>

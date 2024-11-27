@@ -84,7 +84,7 @@ export default function SignInPage() {
           />
         </div>
         <button type="submit" style={{ padding: '10px 15px', background: '#0070f3', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-          Войти
+          Зарегистрироваться
         </button>
       </form>
     </div>
