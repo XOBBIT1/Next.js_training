@@ -2,17 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isClient, setIsClient] = useState(false); // Инициализация состояния
+  const [isClient, setIsClient] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState("new"); // Категория
+  const [searchQuery, setSearchQuery] = useState(""); // Строка поиска
   const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true); // Флаг для клиентского рендера
+    setIsClient(true);
   }, []);
 
   const fetchTasksWithSubscribers = async () => {
@@ -44,7 +46,6 @@ export default function TasksPage() {
       const tasksData = await tasksRes.json();
       const tasksWithSubscribers = await Promise.all(
         tasksData.tasks.map(async (task) => {
-          // Загружаем подписчиков для каждой задачи
           const subscribersRes = await fetch(
             `http://127.0.0.1:8000/api/protected/tasks/get_all_subscribers/${task.id}/`,
             {
@@ -67,6 +68,12 @@ export default function TasksPage() {
     }
   };
 
+  useEffect(() => {
+    if (isClient) {
+      fetchTasksWithSubscribers();
+    }
+  }, [isClient]);
+
   const handleSubscrib = async (taskId) => {
     try {
       const token = localStorage.getItem("access_token");
@@ -79,18 +86,21 @@ export default function TasksPage() {
         "Content-Type": "application/json",
       };
 
-      const res = await fetch(`http://127.0.0.1:8000/api/protected/tasks/subscribe_on_task/${taskId}`, {
-        method: "POST",
-        headers,
-        credentials: "include",
-      });
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/protected/tasks/subscribe_on_task/${taskId}`,
+        {
+          method: "POST",
+          headers,
+          credentials: "include",
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Ошибка при подписке на задачу");
       }
 
       alert("Вы подписались на задачу!");
-      router.push(`/`); // Возвращаемся на страницу списка задач
+      router.push(`/`);
     } catch (err) {
       setError(err.message || "Произошла ошибка");
     }
@@ -133,26 +143,48 @@ export default function TasksPage() {
     }
   };
 
-  useEffect(() => {
-    if (isClient) {
-      fetchTasksWithSubscribers();
-    }
-  }, [isClient]);
-
   if (!isClient) return null;
   if (loading) return <p>Загрузка...</p>;
   if (error) return <p>{error}</p>;
 
+  // Фильтрация задач по категориям
+  const filteredTasks = tasks.filter((task) => {
+    const matchesCategory =
+      currentCategory === "all" ||
+      (currentCategory === "new" && task.status === "Новая задача") ||
+      (currentCategory === "in_progress" && task.status === "В разработке") ||
+      (currentCategory === "completed" && task.status === "Выполненная задача");
+
+    const matchesSearch =
+      searchQuery.trim() === "" ||
+      task.task_name.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
+
+
   return (
-    <div>
-      <div className="add_task">
-        <button onClick={() => router.push(`/task/create/`)}>
-          Добавить задачу
+    <div className="tasks_boks">
+      <input
+        type="search"
+        placeholder="Поиск"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="text-white font-sembold outline-none p-5 ml-5 mt-10 w-4/5 rounded-md bl-black"
+      />
+       <h1 className="box_header">Задачи</h1>
+      <div className="categories">
+        <button onClick={() => setCurrentCategory("all")}>Все задачи задачи</button>
+        <button onClick={() => setCurrentCategory("new")}>Новые задачи</button>
+        <button onClick={() => setCurrentCategory("in_progress")}>
+          В разработке
+        </button>
+        <button onClick={() => setCurrentCategory("completed")}>
+          Выполненные задачи
         </button>
       </div>
       <div className="tasks_boks">
-        <h1 className="box_header">Задачи</h1>
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <div className="box" key={task.id}>
             <div className="add_task">
               <button onClick={() => router.push(`/task/${task.id}`)}>
@@ -165,17 +197,19 @@ export default function TasksPage() {
             <div>
               <h3>Подписчики:</h3>
               {task.subscribers.length > 0 ? (
-                 <h5>{task.subscribers.map((subscriber, index) => (
-                   <li key={index}><Link href={"/user"}>{subscriber.username}</Link></li>
-                 ))}</h5>
+                <ul>
+                  {task.subscribers.map((subscriber, index) => (
+                    <li key={index}>
+                      <Link href={"/user"}>{subscriber.username}</Link>
+                    </li>
+                  ))}
+                </ul>
               ) : (
                 <p>Нет подписчиков</p>
               )}
             </div>
             <div className="add_task">
-              <button onClick={() => handleDelete(task.id)}>
-                Удалить задачу
-              </button>
+              <button onClick={() => handleDelete(task.id)}>Удалить задачу</button>
               <button onClick={() => handleSubscrib(task.id)}>
                 Подписаться на задачу
               </button>

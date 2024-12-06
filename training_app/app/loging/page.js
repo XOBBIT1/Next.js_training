@@ -76,6 +76,9 @@ export default function LoginPage() {
           {loading ? 'Загрузка...' : 'Войти'}
         </button>
       </form>
+      <button onClick={() => router.push(`/forgot_password/`)}>
+          Забыли пароль
+        </button>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>

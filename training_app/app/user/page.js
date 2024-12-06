@@ -69,6 +69,9 @@ export default function UserPage() {
 
   return (
     <div className="box" key={user.id}>
+      <div className="add_task">
+            <button onClick={() => router.push(`/user_update/`)}>Редактировать Профиля</button>
+      </div>
       <h1>{user.username}</h1>
       <p>{user.name}</p>
       <p>{user.email}</p>
