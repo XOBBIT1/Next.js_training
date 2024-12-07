@@ -62,7 +62,7 @@ export default function TasksPage() {
 
       setTasks(tasksWithSubscribers);
     } catch (err) {
-      setError(err.message || "Произошла ошибка");
+      setError(" ");
     } finally {
       setLoading(false);
     }
@@ -165,14 +165,19 @@ export default function TasksPage() {
 
   return (
     <div className="tasks_boks">
-      <input
-        type="search"
-        placeholder="Поиск"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="text-white font-sembold outline-none p-5 ml-5 mt-10 w-4/5 rounded-md bl-black"
-      />
-       <h1 className="box_header">Задачи</h1>
+      <form>
+        <input
+          id="search"
+          type="text"
+          placeholder="Поиск"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="text-white font-sembold outline-none p-5 ml-5 mt-10 w-4/5 rounded-md bl-black"
+          autoComplete="off"
+        />
+        <button id="add-button" onClick={() => router.push(`/task/create`)}>Добавить задачу</button>
+      </form>
+      <h1 className="box_header">Задачи</h1>
       <div className="categories">
         <button onClick={() => setCurrentCategory("all")}>Все задачи задачи</button>
         <button onClick={() => setCurrentCategory("new")}>Новые задачи</button>

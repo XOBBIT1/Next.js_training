@@ -51,10 +51,10 @@ export default function EditTaskPage() {
 
   return (
       <div className="box" key={task.id}>
-        <div className="add_task">
-            <button onClick={() => router.push(`/edit/${task_id}`)}>Редактировать задачу</button>
-        </div>
           <h1>{task.task_name}</h1>
+          <div className="add_task">
+            <button onClick={() => router.push(`/edit/${task_id}`)}>Редактировать задачу</button>
+          </div>
           <p>{task.task_descriptions}</p>
           <p>{task.status}</p>
           <p>{task.priority}</p>

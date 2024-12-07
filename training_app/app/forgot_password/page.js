@@ -8,13 +8,19 @@ export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
-  const router = useRouter(); // Хук для навигации
+  const router = useRouter();
 
   const handleForgotPassword = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Предотвращает перезагрузку страницы при отправке формы
     setLoading(true);
     setError(null);
     setMessage(null);
+
+    if (!email.trim()) {
+      setError("Введите email!");
+      setLoading(false);
+      return;
+    }
 
     try {
       // Отправка запроса на сервер
@@ -33,7 +39,12 @@ export default function ForgotPasswordPage() {
         return;
       }
 
-      setMessage('Код для восстановления пароля отправлена на ваш email.');
+      setMessage('Код для восстановления пароля отправлен на ваш email.');
+
+      // Переход на страницу /reset_password через 3 секунды
+      setTimeout(() => {
+        router.push('/reset_password');
+      }, 3000);
     } catch (err) {
       setError('Произошла ошибка. Попробуйте снова.');
     } finally {
@@ -56,8 +67,8 @@ export default function ForgotPasswordPage() {
             required
           />
         </div>
-        <button onClick={() => router.push(`/reset_password/`)} type="submit" disabled={loading}>
-          {loading ? 'Загрузка...' : 'Отправить'} 
+        <button type="submit" disabled={loading}>
+          {loading ? 'Загрузка...' : 'Отправить'}
         </button>
       </form>
 
