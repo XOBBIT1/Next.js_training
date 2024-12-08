@@ -38,7 +38,7 @@ export default function LoginPage() {
       localStorage.setItem('access_token', data.access_token);
 
       // Редиректим пользователя на главную страницу
-      router.push('/').then(() => window.location.reload());;
+      router.push('/').then(() => window.location.reload());
     } catch (err) {
       setError('Произошла ошибка. Попробуйте снова.');
     } finally {

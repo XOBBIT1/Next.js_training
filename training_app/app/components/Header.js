@@ -54,8 +54,8 @@ export default function UserPage() {
         <p></p>
       ) : (
         <div className="box_header">
-          <h1>Вы не авторизованы. Пожалуйста, войдите в систему.   
-            <Link href="/loging">  Login</Link></h1>
+          <h3>Вы не авторизованы. Пожалуйста, войдите в систему.   
+            <Link href="/loging">  Login</Link></h3>
         </div>
       )}
     </div>
@@ -63,23 +63,40 @@ export default function UserPage() {
 }
 
 const Header = ({ user }) => (
-  <header>
+  <header className="header">
     <div className="header_box">
-      <h1>Task management system</h1>
+      <h1>Task Management System</h1>
     </div>
-    <nav>
-      {user ? (
-        <Link href="/user">{user.username} </Link>
-      ) : (
-        <span>{/* Если user нет, просто пустое место */}</span>
-      )}
-      <Link href="/">Home</Link>
-      {!user && (
-        <>
-          <Link href="/loging">Login</Link>
-          <Link href="/registration">Sign in</Link>
-        </>
-      )}
+    <nav className="navbar">
+      <ul className="nav-links">
+        {user ? (
+          <>
+            <li>
+              <Link href="/user" className="nav-link">
+                {user.username}
+              </Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link href="/login" className="nav-link">
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link href="/registration" className="nav-link">
+                Sign in
+              </Link>
+            </li>
+          </>
+        )}
+        <li>
+          <Link href="/" className="nav-link">
+            Home
+          </Link>
+        </li>
+      </ul>
     </nav>
   </header>
 );

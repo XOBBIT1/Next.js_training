@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import TaskStatus from "./components/TaskStatus";
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState([]);
@@ -179,12 +180,12 @@ export default function TasksPage() {
       </form>
       <h1 className="box_header">Задачи</h1>
       <div className="categories">
-        <button onClick={() => setCurrentCategory("all")}>Все задачи задачи</button>
-        <button onClick={() => setCurrentCategory("new")}>Новые задачи</button>
-        <button onClick={() => setCurrentCategory("in_progress")}>
+        <button className="nuv-button" onClick={() => setCurrentCategory("all")}>Все задачи задачи</button>
+        <button className="nuv-button" onClick={() => setCurrentCategory("new")}>Новые задачи</button>
+        <button className="nuv-button" onClick={() => setCurrentCategory("in_progress")}>
           В разработке
         </button>
-        <button onClick={() => setCurrentCategory("completed")}>
+        <button className="nuv-button" onClick={() => setCurrentCategory("completed")}>
           Выполненные задачи
         </button>
       </div>
@@ -192,14 +193,16 @@ export default function TasksPage() {
         {filteredTasks.map((task) => (
           <div className="box" key={task.id}>
             <div className="add_task">
-              <button onClick={() => router.push(`/task/${task.id}`)}>
+              <button className="use-button" onClick={() => router.push(`/task/${task.id}`)}>
                 Подробнее
               </button>
             </div>
-            <h2>{task.task_name}</h2>
-            <p>Статус: {task.status}</p>
-            <p>Приоритет: {task.priority}</p>
-            <div>
+            <div className="task-card-header">
+              <h2>{task.task_name}</h2>
+              <TaskStatus status={task.status} />
+            </div>
+            <p className="task-priority">Приоритет: {task.priority}</p>
+            <div className="task-subscribers">
               <h3>Подписчики:</h3>
               {task.subscribers.length > 0 ? (
                 <ul>
@@ -214,8 +217,8 @@ export default function TasksPage() {
               )}
             </div>
             <div className="add_task">
-              <button onClick={() => handleDelete(task.id)}>Удалить задачу</button>
-              <button onClick={() => handleSubscrib(task.id)}>
+              <button className="use-button" onClick={() => handleDelete(task.id)}>Удалить задачу</button>
+              <button className="use-button" onClick={() => handleSubscrib(task.id)}>
                 Подписаться на задачу
               </button>
             </div>
