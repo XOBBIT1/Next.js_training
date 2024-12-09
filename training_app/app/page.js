@@ -166,7 +166,7 @@ export default function TasksPage() {
 
   return (
     <div className="tasks_boks">
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <input
           id="search"
           type="text"
@@ -176,7 +176,14 @@ export default function TasksPage() {
           className="text-white font-sembold outline-none p-5 ml-5 mt-10 w-4/5 rounded-md bl-black"
           autoComplete="off"
         />
-        <button id="add-button" onClick={() => router.push(`/task/create`)}>Добавить задачу</button>
+        <button
+          type="button" // Указание типа кнопки
+          onClick={() => router.push(`/task/create`)}
+          id="add-button"
+          disabled={loading}
+        >
+          {loading ? 'Загрузка...' : 'Добавить задачу'}
+        </button>
       </form>
       <h1 className="box_header">Задачи</h1>
       <div className="categories">
@@ -203,7 +210,7 @@ export default function TasksPage() {
             </div>
             <p className="task-priority">Приоритет: {task.priority}</p>
             <div className="task-subscribers">
-              <h3>Подписчики:</h3>
+              <h3>Выполняют задачу:</h3>
               {task.subscribers.length > 0 ? (
                 <ul>
                   {task.subscribers.map((subscriber, index) => (

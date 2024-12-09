@@ -53,11 +53,10 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div>
+    <div className='wrapper'>
       <h1>Восстановление пароля</h1>
-      <form onSubmit={handleResetPassword}>
+      <form  className="base_form" onSubmit={handleResetPassword}>
         <div>
-          <label htmlFor="secure_code">Введите ваш код доступа:</label>
           <input
             type="text"
             id="secure_code"
@@ -68,7 +67,6 @@ export default function ResetPasswordPage() {
           />
         </div>
         <div>
-          <label htmlFor="password">Введите ваш пароль:</label>
           <input
             type="password"
             id="password"
@@ -79,7 +77,6 @@ export default function ResetPasswordPage() {
           />
         </div>
         <div>
-          <label htmlFor="confirm_password">Повторите пароль:</label>
           <input
             type="password"
             id="confirm_password"

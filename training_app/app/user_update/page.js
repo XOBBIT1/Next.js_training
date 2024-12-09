@@ -79,10 +79,11 @@ export default function EditTaskPage() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1>Редактирование профиля: {user?.name || "Пользователь"}</h1>
+    <div className='wrapper'>
+      <h2>Редактирование профиля: {user?.name || "Пользователь"}</h2>
       {user && (
         <form
+          className="base_form"
           onSubmit={(e) => {
             e.preventDefault();
             const updatedTask = {
@@ -93,20 +94,11 @@ export default function EditTaskPage() {
             handleUpdate(updatedTask);
           }}
         >
-          <label>
-            Имя:
             <input type="text" name="name" defaultValue={user.name} />
-          </label>
           <br />
-          <label>
-            Имя пользователя:
             <input type="text" name="username" defaultValue={user.username} />
-          </label>
           <br />
-          <label>
-            Почта:
             <input type="text" name="email" defaultValue={user.email} />
-          </label>
           <br />
           <button type="submit">Сохранить</button>
         </form>

@@ -53,11 +53,10 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div>
+    <div className='wrapper'>
       <h1>Восстановление пароля</h1>
-      <form onSubmit={handleForgotPassword}>
+      <form  className="base_form" onSubmit={handleForgotPassword}>
         <div>
-          <label htmlFor="email">Введите ваш email:</label>
           <input
             type="email"
             id="email"

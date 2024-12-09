@@ -92,9 +92,10 @@ export default function EditTaskPage() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1>Редактирование задачи: {task.task_name}</h1>
+    <div className='wrapper'>
+      <h2>Меню редактирование задачи</h2>
       <form
+        className="base_form"
         onSubmit={(e) => {
           e.preventDefault();
           const updatedTask = {
@@ -102,22 +103,20 @@ export default function EditTaskPage() {
             task_descriptions: e.target.task_descriptions.value,
             status: e.target.status.value,
             priority: e.target.priority.value,
+
           };
           handleUpdate(updatedTask);
         }}
       >
-        <label>
-          Название задачи:
-          <input type="text" name="task_name" defaultValue={task.task_name} />
-        </label>
+          <input type="text" name="task_name" placeholder="Название задачи " / >
         <br />
-        <label>
-          Описание задачи:
-          <input type="text" name="task_descriptions" defaultValue={task.task_descriptions} />
-        </label>
+          <textarea  
+           rows="5" // Количество строк
+           cols="50" // Ширина в символах
+           type="text" 
+           name="task_descriptions"
+           placeholder="Описание задачи"/>
         <br />
-        <label>
-          Статус:
           <select name="status" defaultValue={task.status}>
             {STATUS_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -125,10 +124,7 @@ export default function EditTaskPage() {
               </option>
             ))}
           </select>
-        </label>
         <br />
-        <label>
-          Приоритет:
           <select name="priority" defaultValue={task.priority}>
             {PRIORITY_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -136,7 +132,6 @@ export default function EditTaskPage() {
               </option>
             ))}
           </select>
-        </label>
         <br />
         <button type="submit">Сохранить</button>
       </form>

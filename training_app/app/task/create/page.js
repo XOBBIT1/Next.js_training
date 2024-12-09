@@ -50,9 +50,10 @@ export default function CreateTaskPage() {
   };
 
   return (
-    <div>
-      <h1>Создание задачи</h1>
+    <div className='wrapper'>
+      <h2>Создание задачи</h2>
       <form
+        className="base_form"
         onSubmit={(e) => {
           e.preventDefault();
           const createdTask = {
@@ -64,37 +65,31 @@ export default function CreateTaskPage() {
           handleCreate(createdTask);
         }}
       >
-        <label>
-          Название задачи:
-          <input type="text" name="task_name" defaultValue="" />
-        </label>
+          <input type="text" name="task_name" defaultValue="" placeholder="Название задачи"/>
         <br />
-        <label>
-          Описание задачи:
-          <input type="text" name="task_descriptions" defaultValue="" />
-        </label>
+          <textarea 
+          rows="5" // Количество строк
+          cols="50" // Ширина в символах
+          type="text" 
+          name="task_descriptions" 
+          defaultValue="" 
+          placeholder="Описание задачи" />
         <br />
-        <label>
-          Статус:
-          <select name="status" defaultValue="">
+          <select name="status" defaultValue="" placeholder="Статус">
             {STATUS_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-        </label>
         <br />
-        <label>
-          Приоритет:
-          <select name="priority" defaultValue="">
+          <select name="priority" defaultValue="" placeholder="Приоритет">
             {PRIORITY_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-        </label>
         <br />
         <button type="submit">Сохранить</button>
       </form>

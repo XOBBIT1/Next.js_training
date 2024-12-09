@@ -75,7 +75,7 @@ export default function UserPage() {
       </div>
       <p>{user.name}</p>
       <p>{user.email}</p>
-      <h2>Ваши задачи:</h2>
+      <h3>Ваши задачи:</h3>
       {user.tasks.length > 0 ? (
         <ul>
           {user.tasks.map((task, index) => (
