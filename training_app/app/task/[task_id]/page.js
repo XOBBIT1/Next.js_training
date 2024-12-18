@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import TaskStatus from "@/app/components/TaskStatus";
 
 export default function EditTaskPage() {
   const { task_id } = useParams(); // Получаем ID из маршрута
@@ -51,13 +52,13 @@ export default function EditTaskPage() {
 
   return (
       <div className="box" key={task.id}>
-        <div className="add_task">
+          <h2>{task.task_name}</h2>
+          <div className="add_task">
             <button onClick={() => router.push(`/edit/${task_id}`)}>Редактировать задачу</button>
-        </div>
-          <h1>Задача: {task.task_name}</h1>
-          <p>Описание: {task.task_descriptions}</p>
-          <p>Статус: {task.status}</p>
-          <p>Приоритет: {task.priority}</p>
+          </div>
+          <p>{task.task_descriptions}</p>
+          <TaskStatus status={task.status} />
+          <p>{task.priority}</p>
       </div>
   );
 }

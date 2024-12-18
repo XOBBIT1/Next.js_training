@@ -43,48 +43,54 @@ export default function SignInPage() {
   };
 
   return (
-    <div >
-      <h1>Registration</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='wrapper'>
+      <h1 id="base_h1">Registration</h1>
+      <form className="base_form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email:</label>
           <input
-            type="email"
-            id="email"
+            type="text"
+            name='email'
+            id="email_input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Введите ваш email"
             required></input>
-          <label htmlFor="name">Name:</label>
+        </div>
+        <div>
           <input
-            type="name"
-            id="name"
+            type="text"
+            name='name'
+            id="name_input"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Введите вашe имя"
             required
           />
-          <label htmlFor="username">Username:</label>
+        </div>
+        <div>
           <input
-            type="username"
-            id="username"
+            type="text"
+            name='username'
+            id="username_input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Введите ваше имя пользователя"
             required
           />
-          <label htmlFor="password">Password:</label>
+        </div>
+        <div>
           <input
             type="password"
-            id="password"
+            name='password'
+            id="password_input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Введите ваш пароль"
             required
           />
         </div>
-        <button type="submit" style={{ padding: '10px 15px', background: '#0070f3', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-          Войти
+        <button type="submit" >
+          Зарегистрироваться
         </button>
       </form>
     </div>

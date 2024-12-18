@@ -1,34 +1,57 @@
+:root{
+  --background: #101114;
+  --primary-color: #1C1D20;
+  --secondary-color: #4A4D57;
+  --accent-color: #00FFC4;
+  --button-color: #03c571;
+  --nuv-color: #598d66;
+  --text-color: #F9F9F9;
+  --red-light: hsl(0, 96%, 89%);
+  --red-dark: hsl(0, 74%, 42%);
+  --yellow-light: hsl(53, 98%, 77%);
+  --yellow-dark: hsl(23, 83%, 31%);
+  --green-light: hsl(152, 76%, 80%);
+  --green-dark: hsl(163, 88%, 20%);
+
+}
+
 * {
   margin: 0;
-  padding: auto;
+  padding: 0;
+}
+
+html{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16pt;
+  color: var(--text-color);
 }
 
 body {
-  background: #222;
-  color: #fff;
-}
-
-
-header {
+  min-height: 100vh;
+  padding: 10px;
+  background-color: var(--background);
   display: flex;
-  justify-content: space-between;
-  background-color: #000000;
-  border-bottom: 2px solid #2c2c2c;
-  padding: 20px 50px;
+  flex-direction: column;
+  align-items: center;
 }
 
-header a{
-  margin-left: 20px;
-}
-a{
-  text-decoration: none;
-  color: green;
-}
-
-a:hover {
-  text-decoration: underline;
+h1{
+  margin-bottom: 20px;
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--accent-color);
 }
 
+h2{
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--accent-color);
+}
 
 .main {
   display: flex;
@@ -39,30 +62,419 @@ a:hover {
 
 
 .tasks_boks{
+  width: 700px;
+  max-width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
-  border: 8px solid #fff;
-  min-height: 100px ;
-  gap: 20px;
+  gap: 10px;
 } 
 
 .box{
-  border: 8px solid #000;
-  font-size: 20px;
+  margin: 0 auto;
+  padding: 2em;
+  background: var(--primary-color);
+  border-radius: 30px;
   width: 600px;
+  position: relative;
 }
 
-.box_header{
-  border: 8px solid #000;
+.box button{
+  background-color: var(--accent-color);
+
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  font: inherit;
   font-size: 20px;
-  padding: 20px;
-} 
+  font-weight: 500;
+  color: var(--background);
+  cursor: pointer;
+  margin: 10px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(245, 244, 239, 0.937), 0 -2px 5px rgba(253, 253, 253, 0.6);
+}
+
+.box button:hover {
+  background-color: var(--background); /* Цвет фона при наведении */
+  color: var(--accent-color); /* Цвет текста при наведении */
+  border-color: var(--button-color); /* Изменение цвета границы */
+}
+
+@property   --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.box::after, .box::before{
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), transparent 70%, green);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 30px;
+  animation: 3s spin linear infinite;
+}
+
+.box::before{
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+
+
+@keyframes spin{
+  from{
+    --angle : 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
+}
 
 .add_task{
   font-size: 20px;
-  border: 8px solid #fff;
+  
   display: flex;
   justify-content: flex-end;
+}
+
+#search{
+  box-sizing: border-box;
+  padding: 12px 20px;
+  width: 100%;
+  background: none;
+  border: 2px solid var(--secondary-color);
+  border-radius: 1000px;
+  font: inherit;
+  color: var(--text-color);
+  caret-color: var(--accent-color);
+}
+
+#search:focus{
+  outline: none;
+}
+form{
+  position: relative;
+}
+
+#add-button{
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background-color: var(--accent-color);
+  height: 100%;
+  padding: 0 30px;
+  border: none;
+  border-radius: 1000px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--background);
+  cursor: pointer;
+}
+
+
+
+.use-button{
+  background-color: var(--button-color);
+
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--background);
+  cursor: pointer;
+  margin: 8px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(245, 244, 239, 0.937), 0 -2px 5px rgba(253, 253, 253, 0.6);
+}
+
+.use-button:hover {
+  background-color: var(--background); /* Цвет фона при наведении */
+  color: var(--accent-color); /* Цвет текста при наведении */
+  border-color: var(--button-color); /* Изменение цвета границы */
+}
+
+
+.nuv-button{
+  background-color: var(--nuv-color);
+
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--background);
+  cursor: pointer;
+  margin: 15px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(245, 244, 239, 0.937), 0 -2px 5px rgba(253, 253, 253, 0.6);
+}
+
+.nuv-button:hover {
+  background-color: var(--background); /* Цвет фона при наведении */
+  color: var(--accent-color); /* Цвет текста при наведении */
+  border-color: var(--button-color); /* Изменение цвета границы */
+}
+
+
+/* Основной стиль для header */
+.header {
+  background-color: var(--primary-color);
+  padding: 20px 20px;
+  margin-bottom: 10px;
+  width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header_box h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin: 0;
+}
+
+/* Навигация */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--accent-color);
+  color: var(--background);
+}
+
+/* Активная ссылка (добавить через JS или серверный рендеринг) */
+.nav-link.active {
+  background-color: var(--accent-color);
+  color: var(--background);
+  font-weight: 700;
+}
+
+
+/* Общие стили для текста */
+.task-card {
+  margin: 15px 0;
+  padding: 15px;
+  border-bottom: 1px solid #cccccc; /* Разделительная линия */
+}
+
+.task-card h2 {
+  font-size: 1.2rem;
+  margin: 0 0 5px;
+  color: #333333;
+}
+
+.task-card p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #555555;
+}
+
+/* Стили для ссылок */
+.task-subscribers a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.task-subscribers a:hover {
+  color: #0056b3;
+}
+
+.task-card-footer a,
+.task-card-footer button {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 1rem;
+  color: #007bff;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.task-card-footer a:hover,
+.task-card-footer button:hover {
+  color: #0056b3;
+}
+
+/* Статус задачи */
+/* Standard CSS */
+/* Общие стили статуса задачи */
+.task-status {
+  padding: 0.25rem 0.5rem;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 8px;
+  border-radius: 0.375rem;
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+  transition: box-shadow 0.3s ease-in-out; /* Добавление анимации для плавного эффекта */
+}
+
+/* Стили для "Новая задача" */
+.task-status.new {
+  background-color: #800000; /* Желтый */
+  color: #e8e2dd; /* Темный желтый */
+  box-shadow: 0 4px 8px rgba(227, 2, 2, 0.937), 0 -2px 5px rgba(239, 146, 146, 0.6); /* Выпуклая тень */
+}
+
+/* Стили для "В разработке" */
+.task-status.in-progress {
+  background-color: #b3b301; /* Желтый */
+  color: #e8e2dd; /* Темный желтый */
+  box-shadow: 0 4px 8px rgba(182, 164, 1, 0.937), 0 -2px 5px rgba(239, 146, 146, 0.6); /* Тень для задачи в разработке */
+}
+
+/* Стили для "Выполненная задача" */
+.task-status.completed {
+  background-color: #01690a; /* Желтый */
+  color: #e8e2dd; /* Темный желтый */
+  box-shadow: 0 4px 8px rgba(1, 160, 3, 0.937), 0 -2px 5px rgba(239, 146, 146, 0.6); /* Тень для выполненной задачи */
+}
+
+.wrapper{
+  box-sizing: border-box;
+  height: 100vh;
+  width: max(40%, 300px);
+  padding: 10px;
+  border-radius: 0 20px 20px 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#base_h1{
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.base_form{
+  width: min(400px 100%);
+  margin-top: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.base_form > div{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.base_form input{
+  box-sizing: border-box;
+  flex-grow: 1;
+  min-width: 0;
+  height: 50px;
+  padding: 1em;
+  font: inherit;
+  border-radius: 10px;
+  border: 2px solid var(--secondary-color);
+  background-color: var(--secondary-color);
+  transition: 150ms ease;
+}
+
+.base_form input:hover{
+  border-color: var(--accent-color);
+}
+
+.base_form select{
+  box-sizing: border-box;
+  flex-grow: 1;
+  min-width: 0;
+  height: 60px;
+  padding: 0.5em;
+  font: inherit;
+  border-radius: 10px;
+  border: 2px solid var(--secondary-color);
+  background-color: var(--secondary-color);
+  transition: 150ms ease;
+}
+
+.base_form select:hover{
+  border-color: var(--accent-color);
+}
+
+.base_form textarea{
+  box-sizing: border-box;
+  flex-grow: 1;
+  min-width: 0;
+  height: 60px;
+  padding: 0.5em;
+  font: inherit;
+  border-radius: 10px;
+  border: 2px solid var(--secondary-color);
+  background-color: var(--secondary-color);
+  transition: 150ms ease;
+}
+
+.base_form textarea:hover{
+  border-color: var(--accent-color);
+}
+
+.base_form button{
+  background-color: var(--accent-color);
+
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--background);
+  cursor: pointer;
+  margin: 15px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(245, 244, 239, 0.937), 0 -2px 5px rgba(253, 253, 253, 0.6);
+}
+
+.base_form button:hover {
+  background-color: var(--background); /* Цвет фона при наведении */
+  color: var(--accent-color); /* Цвет текста при наведении */
+  border-color: var(--button-color); /* Изменение цвета границы */
 }

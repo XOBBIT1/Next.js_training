@@ -38,7 +38,7 @@ export default function LoginPage() {
       localStorage.setItem('access_token', data.access_token);
 
       // Редиректим пользователя на главную страницу
-      router.push('/');
+      router.push('/').then(() => window.location.reload());
     } catch (err) {
       setError('Произошла ошибка. Попробуйте снова.');
     } finally {
@@ -47,11 +47,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
+    <div className='wrapper'>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="base_form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
@@ -62,7 +61,6 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
@@ -75,8 +73,10 @@ export default function LoginPage() {
         <button type="submit" disabled={loading}>
           {loading ? 'Загрузка...' : 'Войти'}
         </button>
+      <button onClick={() => router.push(`/forgot_password/`)}>
+          Забыли пароль
+        </button>
       </form>
-
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
